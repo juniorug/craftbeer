@@ -12,9 +12,9 @@ public interface CraftBeerRepository extends CrudRepository<CraftBeer, Long> {
     @Override
     List<CraftBeer> findAll();
     
-    Optional<CraftBeer> findById(Long id);
+    //CraftBeer findById(Long id);
     
     CraftBeer findByName(String name);
     
-    void deleteById(Long id);
+    //void deleteById(Long id);
 }

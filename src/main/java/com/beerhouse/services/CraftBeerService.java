@@ -14,12 +14,12 @@ public interface CraftBeerService {
 
     List<CraftBeer> findAll();
 
-    Optional<CraftBeer> findById(Long id);
+    CraftBeer findById(Long id);
 
     CraftBeer findByName(String name);
 
-    void deleteById(Long id);
+    CraftBeer update(Long id, CraftBeer CraftBeer);
 
-    Optional<CraftBeer> update(Long id, CraftBeer CraftBeer);
+    void deleteById(Long id);
 
 }

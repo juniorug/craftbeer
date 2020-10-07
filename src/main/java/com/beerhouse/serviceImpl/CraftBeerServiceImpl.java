@@ -23,28 +23,29 @@ public class CraftBeerServiceImpl implements CraftBeerService {
     }
     
     @Override
-    public Optional<CraftBeer> findById(Long id) {
-        return craftBeerRepository.findById(id);
+    public List<CraftBeer> findAll() {
+        return craftBeerRepository.findAll();
     }
-
+    
+    @Override
+    public CraftBeer findById(Long id) {
+        return craftBeerRepository.findOne(id);
+    }
+    
     @Override
     public CraftBeer findByName(String name) {
         return craftBeerRepository.findByName(name);
     }
     
-    @Override
-    public List<CraftBeer> findAll() {
-        return craftBeerRepository.findAll();
-    }
 
     @Override
     public void deleteById(Long id) {
-        craftBeerRepository.deleteById(id);
+        craftBeerRepository.delete(id);
     }
 
     @Override
-    public Optional<CraftBeer> update(Long id, CraftBeer newCraftBeer) {
-        return craftBeerRepository.findById(id);
+    public CraftBeer update(Long id, CraftBeer newCraftBeer) {
+        return craftBeerRepository.findOne(id);
             /*.map(craftBeer -> {
                 craftBeer.setName(newCraftBeer.getName());
                 craftBeerRepository.save(craftBeer);
