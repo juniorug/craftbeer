@@ -8,9 +8,10 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 import com.beerhouse.controllers.CraftBeerController;
 
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
+
 @SpringBootApplication
 @ComponentScan(basePackages = "com.beerhouse")
-//@EnableJpaRepositories("com.beerhouse.repositories")
 public class Application {
 
 	public static void main(String[] args) {

@@ -3,6 +3,7 @@ package com.beerhouse.serviceImpl;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Function;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,7 +14,7 @@ import com.beerhouse.services.CraftBeerService;
 
 
 @Service
-public class CraftBeerServiceImpl implements CraftBeerService {
+public class CraftBeerServiceImpl<U> implements CraftBeerService {
 
     @Autowired
     private CraftBeerRepository craftBeerRepository;
@@ -25,11 +26,10 @@ public class CraftBeerServiceImpl implements CraftBeerService {
     
     @Override
     public List<CraftBeer> getAll() {
-        List<CraftBeer> craftBeers = new ArrayList<CraftBeer>();
-        Iterable<CraftBeer> getAll = craftBeerRepository.findAll();
-        System.out.println(getAll.toString());
-        getAll.forEach(craftBeers::add);
-        return craftBeers;
+//        List<CraftBeer> craftBeers = new ArrayList<CraftBeer>();
+//        Iterable<CraftBeer> getAll = craftBeerRepository.findAll();
+//        getAll.forEach(craftBeers::add);
+        return craftBeerRepository.findAll();
     }
     
     @Override
@@ -44,17 +44,28 @@ public class CraftBeerServiceImpl implements CraftBeerService {
     
 
     @Override
+    public CraftBeer update(Long id, CraftBeer newCraftBeer) {
+         craftBeerRepository.findById(id)
+         .map((Function<CraftBeer, CraftBeer>) record -> { 
+                record.setName(newCraftBeer.getName());
+                record.setCategoryName(newCraftBeer.getCategoryName());
+                record.setBreweryName(newCraftBeer.getBreweryName());
+                record.setAbv(newCraftBeer.getAbv());
+                record.setIbu(newCraftBeer.getIbu());
+                craftBeerRepository.save(record);
+                return record;
+            });
+        return null;
+
+    }
+    
+    @Override
     public void deleteById(Long id) {
         craftBeerRepository.delete(id);
     }
-
+    
     @Override
-    public CraftBeer update(Long id, CraftBeer newCraftBeer) {
-        return craftBeerRepository.findOne(id);
-            /*.map(craftBeer -> {
-                craftBeer.setName(newCraftBeer.getName());
-                craftBeerRepository.save(craftBeer);
-            })*/
-
+    public void deleteAll() {
+        craftBeerRepository.deleteAll();
     }
 }

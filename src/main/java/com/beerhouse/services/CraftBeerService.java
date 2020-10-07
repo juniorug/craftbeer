@@ -21,5 +21,7 @@ public interface CraftBeerService {
     CraftBeer update(Long id, CraftBeer CraftBeer);
 
     void deleteById(Long id);
+    
+    void deleteAll();
 
 }
