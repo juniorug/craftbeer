@@ -12,11 +12,11 @@ public interface CraftBeerService {
 
     void save(CraftBeer CraftBeer);
 
-    List<CraftBeer> findAll();
+    List<CraftBeer> getAll();
 
     CraftBeer findById(Long id);
 
-    CraftBeer findByName(String name);
+    List<CraftBeer> findByName(String name);
 
     CraftBeer update(Long id, CraftBeer CraftBeer);
 

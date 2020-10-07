@@ -9,8 +9,6 @@ import com.beerhouse.controllers.CraftBeerController;
 
 @SpringBootApplication
 @ComponentScan(basePackages = "com.beerhouse")
-@ComponentScan(basePackageClasses = CraftBeerController.class)
-@EntityScan("com.beerhouse.models")
 public class Application {
 
 	public static void main(String[] args) {

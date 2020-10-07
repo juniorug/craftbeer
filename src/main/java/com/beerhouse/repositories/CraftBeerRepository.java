@@ -14,7 +14,7 @@ public interface CraftBeerRepository extends CrudRepository<CraftBeer, Long> {
     
     //CraftBeer findById(Long id);
     
-    CraftBeer findByName(String name);
+    List<CraftBeer> findByName(String name);
     
     //void deleteById(Long id);
 }

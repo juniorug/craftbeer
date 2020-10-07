@@ -1,5 +1,6 @@
 package com.beerhouse.serviceImpl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,8 +24,12 @@ public class CraftBeerServiceImpl implements CraftBeerService {
     }
     
     @Override
-    public List<CraftBeer> findAll() {
-        return craftBeerRepository.findAll();
+    public List<CraftBeer> getAll() {
+        List<CraftBeer> craftBeers = new ArrayList<CraftBeer>();
+        Iterable<CraftBeer> getAll = craftBeerRepository.findAll();
+        System.out.println(getAll.toString());
+        getAll.forEach(craftBeers::add);
+        return craftBeers;
     }
     
     @Override
@@ -33,7 +38,7 @@ public class CraftBeerServiceImpl implements CraftBeerService {
     }
     
     @Override
-    public CraftBeer findByName(String name) {
+    public List<CraftBeer> findByName(String name) {
         return craftBeerRepository.findByName(name);
     }
     
