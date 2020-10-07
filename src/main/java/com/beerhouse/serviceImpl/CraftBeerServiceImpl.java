@@ -6,6 +6,8 @@ import java.util.Optional;
 import java.util.function.Function;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.beerhouse.models.CraftBeer;
@@ -45,18 +47,20 @@ public class CraftBeerServiceImpl<U> implements CraftBeerService {
 
     @Override
     public CraftBeer update(Long id, CraftBeer newCraftBeer) {
-         craftBeerRepository.findById(id)
-         .map((Function<CraftBeer, CraftBeer>) record -> { 
-                record.setName(newCraftBeer.getName());
-                record.setCategoryName(newCraftBeer.getCategoryName());
-                record.setBreweryName(newCraftBeer.getBreweryName());
-                record.setAbv(newCraftBeer.getAbv());
-                record.setIbu(newCraftBeer.getIbu());
-                craftBeerRepository.save(record);
-                return record;
-            });
-        return null;
-
+         Optional<CraftBeer> craftBeer = craftBeerRepository.findById(id);
+         if(craftBeer.isPresent()) {
+             craftBeer.map((Function<CraftBeer, CraftBeer>) record -> { 
+                    record.setName(newCraftBeer.getName());
+                    record.setCategoryName(newCraftBeer.getCategoryName());
+                    record.setBreweryName(newCraftBeer.getBreweryName());
+                    record.setAbv(newCraftBeer.getAbv());
+                    record.setIbu(newCraftBeer.getIbu());
+                    craftBeerRepository.save(record);
+                    return record;
+             });
+             return craftBeer.get();
+         } 
+         return null;
     }
     
     @Override

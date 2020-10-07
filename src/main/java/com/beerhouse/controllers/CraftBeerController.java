@@ -26,7 +26,7 @@ public class CraftBeerController {
     @Autowired
     private CraftBeerService craftBeerService;
 
-    @PostMapping
+    @PostMapping(consumes="application/json")
     public ResponseEntity<CraftBeer> save(@RequestBody CraftBeer craftBeer) {
         craftBeerService.save(craftBeer);
         return new ResponseEntity<>(craftBeer, HttpStatus.CREATED);
@@ -58,8 +58,8 @@ public class CraftBeerController {
         }
     }
     
-    @RequestMapping(method = RequestMethod.GET, params = {"name"}, produces="application/json")
-    public ResponseEntity<List<CraftBeer>> findByName(@RequestParam(value="name") String name) {
+    @GetMapping("/name/{name}")
+    public ResponseEntity<List<CraftBeer>> findByName(@PathVariable("name") String name) {
       try {
         List<CraftBeer> craftBeerData = craftBeerService.findByName(name);
         if (craftBeerData.isEmpty()) {
@@ -75,10 +75,8 @@ public class CraftBeerController {
     public ResponseEntity<CraftBeer> updateCraftBeer(@PathVariable("id") long id, @RequestBody CraftBeer craftBeer) {
         CraftBeer CraftBeerData = craftBeerService.update(id, craftBeer);
         if (null != CraftBeerData) {
-            System.out.println("craftBeers.is not empty()");
             return new ResponseEntity<>(CraftBeerData, HttpStatus.OK);
         } else {
-            System.out.println("craftBeers.isEmpty()");
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }

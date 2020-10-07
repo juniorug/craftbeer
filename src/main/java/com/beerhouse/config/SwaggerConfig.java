@@ -5,6 +5,7 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -31,6 +32,7 @@ public class SwaggerConfig {
           .apis(RequestHandlerSelectors.any())
           .paths(PathSelectors.any())
           .build()
+          .genericModelSubstitutes(Optional.class)
           .useDefaultResponseMessages(false)
           .globalResponseMessage(RequestMethod.GET, responseMessageForGET());
     }
