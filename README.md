@@ -47,6 +47,20 @@ To execute the project locally, run:
     $ ./mvnw spring-boot:run
 ```
 
+##Build and run the docker containerized application 
+
+Build the container image by doing the follow:
+
+
+```bash
+    $ docker build -t springio/craft-beer .
+```
+
+Then, to run the application from container:
+
+```bash
+    $ docker run -p 8080:8080 springio/craft-beer
+```
 
 ## Swagger Doc
 The API's documentation is in Swagger format and can be accessed at:
@@ -60,10 +74,8 @@ The Json for the Swagger generation can be found at:
 ```bash
     http://localhost:8080/v2/api-docs
 ```
-And also in the project's `/doc` folder.
+This file can also be found in the project's `/doc` folder.
 
 ## Postman Collection
 To import the Postman collection, use the file `/docs/Craft Beers Spring Boot REST API.postman_collection.json`
-
-
 
