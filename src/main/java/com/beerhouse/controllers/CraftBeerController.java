@@ -18,16 +18,20 @@ import com.beerhouse.models.CraftBeer;
 import com.beerhouse.services.CraftBeerService;
 
 @RestController
-@RequestMapping(path = "/craft-beers", produces="application/json")
+@RequestMapping(path = "/craft-beers", produces = "application/json")
 public class CraftBeerController {
 
     @Autowired
     private CraftBeerService craftBeerService;
 
-    @PostMapping(consumes="application/json")
+    @PostMapping(consumes = "application/json")
     public ResponseEntity<CraftBeer> save(@RequestBody CraftBeer craftBeer) {
-        craftBeerService.save(craftBeer);
-        return new ResponseEntity<>(craftBeer, HttpStatus.CREATED);
+        try {
+            craftBeerService.save(craftBeer);
+            return new ResponseEntity<>(craftBeer, HttpStatus.CREATED);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @GetMapping
@@ -45,54 +49,62 @@ public class CraftBeerController {
 
     @GetMapping("/{id}")
     public ResponseEntity<CraftBeer> getCraftBeerById(@PathVariable("id") long id) {
-        CraftBeer craftBeerData = craftBeerService.findById(id);
-        if (null != craftBeerData) {
-            return new ResponseEntity<>(craftBeerData, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        try {
+            CraftBeer craftBeerData = craftBeerService.findById(id);
+            if (null != craftBeerData) {
+                return new ResponseEntity<>(craftBeerData, HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    
+
     @GetMapping("/name/{name}")
     public ResponseEntity<List<CraftBeer>> findByName(@PathVariable("name") String name) {
-      try {
-        List<CraftBeer> craftBeerData = craftBeerService.findByName(name);
-        if (craftBeerData.isEmpty()) {
-          return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        try {
+            List<CraftBeer> craftBeerData = craftBeerService.findByName(name);
+            if (craftBeerData.isEmpty()) {
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }
+            return new ResponseEntity<>(craftBeerData, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        return new ResponseEntity<>(craftBeerData, HttpStatus.OK);
-      } catch (Exception e) {
-        return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-      }
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<CraftBeer> updateCraftBeer(@PathVariable("id") long id, @RequestBody CraftBeer craftBeer) {
-        CraftBeer CraftBeerData = craftBeerService.update(id, craftBeer);
-        if (null != CraftBeerData) {
-            return new ResponseEntity<>(CraftBeerData, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        try {
+            CraftBeer CraftBeerData = craftBeerService.update(id, craftBeer);
+            if (null != CraftBeerData) {
+                return new ResponseEntity<>(CraftBeerData, HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    
+
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteCraftBeer(@PathVariable("id") long id) {
         try {
             craftBeerService.deleteById(id);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-          } catch (Exception e) {
+        } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-          }
+        }
     }
-    
+
     @DeleteMapping("")
     public ResponseEntity<?> deleteAllCraftBeer() {
         try {
             craftBeerService.deleteAll();
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-          } catch (Exception e) {
+        } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-          }
+        }
     }
 }

@@ -12,7 +12,7 @@ import com.beerhouse.models.CraftBeer;
 public interface CraftBeerRepository extends JpaRepository<CraftBeer, Long> {
 
     Optional<CraftBeer> findById(Long id);
-    
+
     List<CraftBeer> findByName(String name);
-    
+
 }
