@@ -12,8 +12,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.beerhouse.models.CraftBeer;
@@ -34,7 +32,6 @@ public class CraftBeerController {
 
     @GetMapping
     public ResponseEntity<List<CraftBeer>> getAll() {
-        System.out.println("getAll called!22");
         try {
             List<CraftBeer> craftBeers = craftBeerService.getAll();
             if (craftBeers.isEmpty()) {
@@ -50,10 +47,8 @@ public class CraftBeerController {
     public ResponseEntity<CraftBeer> getCraftBeerById(@PathVariable("id") long id) {
         CraftBeer craftBeerData = craftBeerService.findById(id);
         if (null != craftBeerData) {
-            System.out.println("craftBeers.is not empty()");
             return new ResponseEntity<>(craftBeerData, HttpStatus.OK);
         } else {
-            System.out.println("craftBeers.isEmpty()");
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }

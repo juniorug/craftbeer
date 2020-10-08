@@ -1,13 +1,10 @@
 package com.beerhouse.serviceImpl;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.beerhouse.models.CraftBeer;
@@ -28,9 +25,6 @@ public class CraftBeerServiceImpl<U> implements CraftBeerService {
     
     @Override
     public List<CraftBeer> getAll() {
-//        List<CraftBeer> craftBeers = new ArrayList<CraftBeer>();
-//        Iterable<CraftBeer> getAll = craftBeerRepository.findAll();
-//        getAll.forEach(craftBeers::add);
         return craftBeerRepository.findAll();
     }
     
