@@ -4,6 +4,10 @@ Java application to register craft beers.
 
 Based on [Building an Application with Spring Boot](https://spring.io/guides/gs/spring-boot/).
 
+# CraftbeerFrontend
+
+The (Angular)Front-end for this project can be found at [craftbeer-frontend](https://github.com/juniorug/craftbeer-frontend).
+
 ## Funcionalities
 
 -  Craft Beer CRUD by API.<br/>
