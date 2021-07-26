@@ -1,4 +1,4 @@
-package com.beerhouse.serviceImpl;
+package com.beerhouse.serviceimpl;
 
 import java.util.List;
 import java.util.Optional;
@@ -18,8 +18,8 @@ public class CraftBeerServiceImpl<U> implements CraftBeerService {
     private CraftBeerRepository craftBeerRepository;
 
     @Override
-    public void save(CraftBeer CraftBeer) {
-        craftBeerRepository.save(CraftBeer);
+    public void save(CraftBeer craftBeer) {
+        craftBeerRepository.save(craftBeer);
     }
 
     @Override
@@ -41,14 +41,14 @@ public class CraftBeerServiceImpl<U> implements CraftBeerService {
     public CraftBeer update(Long id, CraftBeer newCraftBeer) {
         Optional<CraftBeer> craftBeer = craftBeerRepository.findById(id);
         if (craftBeer.isPresent()) {
-            craftBeer.map((Function<CraftBeer, CraftBeer>) record -> {
-                record.setName(newCraftBeer.getName());
-                record.setCategoryName(newCraftBeer.getCategoryName());
-                record.setBreweryName(newCraftBeer.getBreweryName());
-                record.setAbv(newCraftBeer.getAbv());
-                record.setIbu(newCraftBeer.getIbu());
-                craftBeerRepository.save(record);
-                return record;
+            craftBeer.map((Function<CraftBeer, CraftBeer>) beer -> {
+                beer.setName(newCraftBeer.getName());
+                beer.setCategoryName(newCraftBeer.getCategoryName());
+                beer.setBreweryName(newCraftBeer.getBreweryName());
+                beer.setAbv(newCraftBeer.getAbv());
+                beer.setIbu(newCraftBeer.getIbu());
+                craftBeerRepository.save(beer);
+                return beer;
             });
             return craftBeer.get();
         }
