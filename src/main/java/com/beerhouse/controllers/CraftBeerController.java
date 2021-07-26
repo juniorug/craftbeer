@@ -77,9 +77,9 @@ public class CraftBeerController {
     @PutMapping("/{id}")
     public ResponseEntity<CraftBeer> updateCraftBeer(@PathVariable("id") long id, @RequestBody CraftBeer craftBeer) {
         try {
-            CraftBeer CraftBeerData = craftBeerService.update(id, craftBeer);
-            if (null != CraftBeerData) {
-                return new ResponseEntity<>(CraftBeerData, HttpStatus.OK);
+            CraftBeer craftBeerData = craftBeerService.update(id, craftBeer);
+            if (null != craftBeerData) {
+                return new ResponseEntity<>(craftBeerData, HttpStatus.OK);
             } else {
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }
@@ -89,7 +89,7 @@ public class CraftBeerController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteCraftBeer(@PathVariable("id") long id) {
+    public ResponseEntity<Void> deleteCraftBeer(@PathVariable("id") long id) {
         try {
             craftBeerService.deleteById(id);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
